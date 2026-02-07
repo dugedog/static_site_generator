@@ -41,17 +41,19 @@ class ParentNode(HTMLNode):
 
     def to_html(self):
         children_list = ""
+        new_node = ""
         if self.tag is None:
-            return ValueError("invalid HTML: no tag")
+            raise ValueError("invalid HTML: no tag")
         elif self.children is None:
-            return ValueError("invalid HTML: no children")
+            raise ValueError("invalid HTML: no children")
         else:
             for node in self.children:
+                if node is None:
+                    raise ValueError("invalid HTML: no children")
                 if isinstance(node, LeafNode):
-                    children_list += node.to_html()
-                    print(f"This is running when the node is {type(node)} --> {children_list}")
+                    new_node += node.to_html()
+                    return f'<{self.tag}{self.props_to_html()}>{children_list}</{self.tag}>'
                 else:
-                    print(f"This is running when the node is {type(node)} --> {node.to_html()}")
-                    return node.to_html()
-            return f'<{self.tag}{self.props_to_html()}>{children_list}</{self.tag}>'
+                    new_node += node.to_html()
+        return f'<{self.tag}{self.props_to_html()}>{new_node}</{self.tag}>'
 
