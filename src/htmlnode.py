@@ -41,7 +41,6 @@ class ParentNode(HTMLNode):
 
     def to_html(self):
         children_list = ""
-        new_node = ""
         if self.tag is None:
             raise ValueError("invalid HTML: no tag")
         elif self.children is None:
@@ -51,9 +50,10 @@ class ParentNode(HTMLNode):
                 if node is None:
                     raise ValueError("invalid HTML: no children")
                 if isinstance(node, LeafNode):
-                    new_node += node.to_html()
-                    return f'<{self.tag}{self.props_to_html()}>{children_list}</{self.tag}>'
+                    children_list += node.to_html()
                 else:
-                    new_node += node.to_html()
-        return f'<{self.tag}{self.props_to_html()}>{new_node}</{self.tag}>'
+                    return f'<{self.tag}{self.props_to_html()}>{node.to_html()}</{self.tag}>'
+        return f'<{self.tag}{self.props_to_html()}>{children_list}</{self.tag}>'
 
+    def __repr__(self):
+        return f"ParentNode({self.tag}, children: {self.children}, {self.props})"
