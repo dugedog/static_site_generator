@@ -5,8 +5,8 @@ class BlockType(Enum):
     HEADING = "heading"
     CODE = "code"
     QUOTE = "quote"
-    UNORDERED_LIST = "unordered_list"
-    ORDERED_LIST = "ordered_list"
+    ULIST = "unordered_list"
+    OLIST = "ordered_list"
 
 
 def markdown_to_blocks(markdown):
@@ -24,14 +24,32 @@ def block_to_block_type(block):
         symbol_count = 0
         block_as_lines = block.split("\n")
         for line in block_as_lines:
-            print(f"line = {line[0]}")
             if line[0] == ">" and len(line)>1:
                 symbol_count += 1
-        print(f"Symbol count = {symbol_count} and length is {len(block_as_lines)}")
+        if symbol_count == len(block_as_lines):
+            return True
+        else:
+            return False
+    
+    def test_ulist_block(block):
+        symbol_count = 0
+        block_as_lines = block.split("\n")
+        for line in block_as_lines:
+            if line.startswith("- "):
+                symbol_count += 1
         if symbol_count == len(block_as_lines):
             return True
         else:
             return False 
+
+    def test_olist_block(block):
+        block_as_lines = block.split("\n")
+        for i in range(len(block_as_lines)):
+            if block_as_lines[i].startswith(f"{i+1}."):
+                continue 
+            else:
+                return False 
+        return True
 
     if block.startswith("# ") or block.startswith("## ") or block.startswith("### ") or block.startswith("#### ") or block.startswith("#### ") or block.startswith("#### "):
         return BlockType.HEADING
@@ -39,7 +57,8 @@ def block_to_block_type(block):
         return BlockType.CODE
     if test_quote_block(block) == True:
         return BlockType.QUOTE
+    if test_ulist_block(block) == True:
+        return BlockType.ULIST
+    if test_olist_block(block) == True:
+        return BlockType.OLIST
     return BlockType.PARAGRAPH
-
-
-
