@@ -51,7 +51,7 @@ def block_to_block_type(block):
                 return False 
         return True
 
-    if block.startswith("# ") or block.startswith("## ") or block.startswith("### ") or block.startswith("#### ") or block.startswith("#### ") or block.startswith("#### "):
+    if block.startswith("# ") or block.startswith("## ") or block.startswith("### ") or block.startswith("#### ") or block.startswith("##### ") or block.startswith("###### "):
         return BlockType.HEADING
     if block[0:4] == "```\n" and block[-3:] == "```":
         return BlockType.CODE
