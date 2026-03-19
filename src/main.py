@@ -1,7 +1,7 @@
-from textnode import TextNode
+from copy_static import copy_static
+from os import path 
 
 def main():
-    test = TextNode("This is some anchor text", "link", "https://www.boot.dev")
-    print(test)
-
+    print(copy_static())
+        
 main()    
