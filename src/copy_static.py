@@ -32,8 +32,9 @@ def copy_static():
 
     if not path.exists(source) or not(path.isdir(source)):
         raise Exception("source directory not found or is not a directory")
-
+    print(f"Checking if {destination} exists")
     if path.exists(destination):
+        print(f"destination exists, deleting")
         rmtree(destination)
         mkdir(destination)
     else:
