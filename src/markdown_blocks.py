@@ -22,7 +22,7 @@ def markdown_to_blocks(markdown):
 def block_to_block_type(block):
     def test_quote_block(block):
         symbol_count = 0
-        block_as_lines = block.split("\n")
+        block_as_lines = block.split("\n\n")
         for line in block_as_lines:
             if line[0] == ">" and len(line)>1:
                 symbol_count += 1

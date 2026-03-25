@@ -21,6 +21,22 @@ This is another paragraph with _italic_ text and `code` here
         "<div><p>This is <b>bolded</b> paragraph text in a p tag here</p><p>This is another paragraph with <i>italic</i> text and <code>code</code> here</p></div>",
     )
 
+    def test_tolkein_quote(self):
+        md = """
+> "I am in fact a Hobbit in all but size."
+>
+> -- J.R.R. Tolkien 
+"""
+
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        self.assertEqual(
+            html,
+            "<div><blockquote>I am in fact a Hobbit in all but size. -- J.R.R. Tolkien</blockquote></div>"
+        )
+
+ 
+
     def test_unordered_list(self):
         md = """
 - Item one
@@ -104,7 +120,7 @@ This is another paragraph with _italic_ text and `code` here
         "<div><h1>This is <b>bold</b> and <i>italic</i> text</h1></div>",
     )
 
-    def test_blockquote(self):
+    def test_blockquote_1(self):
         md = """
 > This is a quote
 """
@@ -282,8 +298,7 @@ this is paragraph text
 
     def test_blockquote(self):
         md = """
-> This is a
-> blockquote block
+> This is a blockquote block
 
 this is paragraph text
 
