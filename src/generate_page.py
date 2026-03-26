@@ -32,7 +32,6 @@ def update_template(template, html_string, page_title, basepath):
         elif html == "    <article>{{ Content }}</article>":
             html_list.append(f"    <article>{html_string}</article>")
         else:
-            print(f"#html--> {html})")
             html_list.append(f"{html}") 
     html_content = "\n".join(html_list) 
     html_content = html_content.replace('href="/',f'href="{basepath}')
